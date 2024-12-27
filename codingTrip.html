@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>언젠간되겠지 조예인 소개 페이지(개인)</title>
+
+    <!-- jQuery Script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- BootStrap Script -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- fontAwesome Script -->
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+    <style>
+      #myName {
+        color : white;
+      }
+      #myContent{
+        color :darkviolet;
+        font-weight: bold;
+      }
+      .myText {
+        position: relative;
+      }
+    </style>
+
+    <!-- FireBase 연동 및 기능 넣는 구간 -->
+    <script type="module">
+      /* 파이어베이스 시작점 */
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import {
+        collection,
+        query,
+        where,
+        addDoc,
+        getDocs,
+        getDoc,
+        setDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import {
+        getStorage,
+        ref,
+        uploadBytes,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBi68Bib9QK92ATsOSiYZ0rdvz2kMwXi88",
+        authDomain: "onboarding-project-6b59e.firebaseapp.com",
+        projectId: "onboarding-project-6b59e",
+        storageBucket: "onboarding-project-6b59e.firebasestorage.app",
+        messagingSenderId: "654347061607",
+        appId: "1:654347061607:web:3c6f4e1e4c880db463c7c2",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+      /* 파이어베이스 끝 */
+
+      /* 여기부터 작성하시면 됩니다!! */
+      let docs = await getDoc(doc(db, "members", "codingTrip"));
+      let row = docs.data();
+      let image = row['profile_url'];
+      let name = row['name'];
+      let content = row['content'];
+
+
+      $("#myName").text(name);
+      $("#myContent").text(content);
+      $('#myImage').css({
+        'background-image': `url(${image})`,
+        'background-size': 'cover',
+        'background-position': 'center',
+        'opacity': '0.7',
+        'position': 'absolute',
+      });
+
+    </script>
+  </head>
+  <body>
+    <div class="showName">    
+      <div id="myImage" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+      <div class="col-md-6 p-lg-5 mx-auto my-5 myText">
+        <h1 id="myName" class="display-3 fw-bold name"></h1>
+        <h3 id="myContent" ></h3>
+      </div>
+      <div class="product-device shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+  </div>
+  
+    <div class="container px-4 py-5" id="icon-grid">
+      <h2 class="pb-2 border-bottom">저를 소개합니다.</h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+        <div class="col d-flex align-items-start">
+          <i class="fa-solid fa-person" style="color:balck"></i>
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">MBTI</h3>
+            <p>ISFJ</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">관심사</h3>
+            <p>코딩👩🏻‍💻, 작곡🎼</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">취미</h3>
+            <p>노래🎤, 우쿨렐레🪕</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">개발 블로그</h3>
+            <a href="https://codingtrip.tistory.com/">https://codingtrip.tistory.com/</a>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">개발경험</h3>
+            <p>국비지원 학원 자바 백엔드 과정 6개월<br/> 금융 IT 중소기업 2년 경력<br/>  정보처리기사 취득<br/>
+            <p>하지만... 거의 다 까먹었습니다.😂</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">TMI</h3>
+            <p>나이는 한국 나이로 29살이고,<br/> 결혼한 지 1년 정도 되었습니다.👰🏻‍♀️<br/></p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">2025년 새해 목표</h3>
+            <p>스파르타 내일배움캠프 잘 수료해서<br/> 원하는 곳에 취뽀하기!</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"></use></svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">한마디</h3>
+            <p>이런저런 고민을 가지고<br/> 시작하는 서로에게<br/> 힘이 되어 잘 해봐요.🥰</p>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-info" onclick="location.href='index.html' ">뒤로가기</button>
+    </div>
+  </body>
+</html>
